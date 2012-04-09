@@ -1,0 +1,4 @@
+class NavigationBar
+{
+	private:
+		ButtonList 

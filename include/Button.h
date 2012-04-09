@@ -1,0 +1,51 @@
+//==============================================================================
+// Date Created:		20 April 2011
+// Last Updated:		28 April 2011
+//
+// File name:			Button.h
+// Programmer:			Matthew Hydock
+//
+// File description:	Header file for a GUI component to draw a button to
+//						screen. Can be static or interactive, and calls a
+//						functor when clicked.
+//==============================================================================
+
+#include "Drawable.h"
+#include "DrawText.h"
+#include <SDL/SDL_ttf.h>
+
+#ifndef BUTTON
+#define BUTTON
+
+class Button:public Drawable
+{
+	private:
+		bool interactive;
+
+		AbstractFunctor* act;
+		
+		DrawText* text;
+		
+		void buildText();
+		
+		float* outline_color;
+		float* grad1_color;
+		float* grad2_color;
+		float* hover_color;
+		
+		int horz_padding;
+		int vert_padding;
+		
+	public:
+		Button(string l, AbstractFunctor* f, float x, float y, float w, float h, bool active = true);
+		~Button();
+		
+		bool isInteractive();
+		void setInteract(bool c);
+		
+		void setAction(AbstractFunctor* f);
+		void activate();
+		
+		void draw();
+};
+#endif
