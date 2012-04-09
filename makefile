@@ -1,16 +1,52 @@
-SOURCES =	MimeIdentifier.cpp DirTree.cpp Indexer.cpp \
-			Drawable.cpp DrawableList.cpp DrawText.cpp LabeledDrawable.cpp \
-			Container.cpp Button.cpp ListItem.cpp TagsList.cpp \
-			Star.cpp GSector.cpp Galaxy.cpp StateManager.cpp StatusBar.cpp \
+vpath %.cpp ./src/
+vpath %.o ./bin/
+vpath %.h ./include/
+
+SOURCES =	MimeIdentifier.cpp \
+			FileNode.cpp \
+			DirNode.cpp \
+			DirTree.cpp \
+			Indexer.cpp \
+			TextureObject.cpp \
+			RenderTextureObject.cpp \
+			Drawable.cpp \
+			DrawableList.cpp \
+			DrawText.cpp \
+			LabeledDrawable.cpp \
+			Container.cpp \
+			Button.cpp \
+			ListItem.cpp \
+			TagsList.cpp \
+			Star.cpp \
+			GSector.cpp \
+			Galaxy.cpp \
+			StateManager.cpp \
+			StatusBar.cpp \
 			Main.cpp
 			
-OBJECTS = 	MimeIdentifier.o DirTree.o Indexer.o \
-			Drawable.o DrawableList.o DrawText.o LabeledDrawable.o \
-			Container.o Button.o ListItem.o TagsList.o \
-			Star.o GSector.o Galaxy.o StateManager.o StatusBar.o \
+OBJECTS = 	MimeIdentifier.o \
+			FileNode.o \
+			DirNode.o \
+			DirTree.o \
+			Indexer.o \
+			TextureObject.o \
+			RenderTextureObject.o \
+			Drawable.o \
+			DrawableList.o \
+			DrawText.o \
+			LabeledDrawable.o \
+			Container.o \
+			Button.o \
+			ListItem.o \
+			TagsList.o \
+			Star.o \
+			GSector.o \
+			Galaxy.o \
+			StateManager.o \
+			StatusBar.o \
 			Main.o
 			
-HEADERS =	global_header.h fs_structs.h
+HEADERS =	$(wildcard *.h)
 
 CC = g++
 CFLAGS = -g \
@@ -19,22 +55,24 @@ CFLAGS = -g \
 	-pedantic \
 # endlist
 
-CPPFLAGS := $(CFLAGS)
+CPPFLAGS := $(CFLAGS) -I include
 
-LDFLAGS :=  -lm -lmagic -lGL -lGLU -lglut -lIL -lILU -lILUT -lSDL -lSDL_ttf -lX11
+LDFLAGS :=  -lm -lmagic -lGL -lGLU -lglut -lSDL -lSDL_ttf -lSDL_image -lX11
 
 .PHONY: default
-default: testbuild
+default: normbuild
 
 .PHONY: clean
 clean:
+	cd bin
 	rm -f $(OBJECTS) starnavi
+	cd ..
 
 normbuild:$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o starnavi
 
 testbuild:$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o starnavi	
-	mv -f ./starnavi ~/test\ dir
-	chmod +x ~/test\ dir/starnavi
+	mv -f ./starnavi ~/
+	chmod +x ~/starnavi
 
